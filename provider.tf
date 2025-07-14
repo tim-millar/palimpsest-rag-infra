@@ -1,9 +1,9 @@
 terraform {
-  required_version = ">= 1.8" # functions support landed in 1.8+
+  required_version = ">= 1.8"
   required_providers {
     dotenv = {
       source  = "germanbrew/dotenv"
-      version = "~> 1.2.7" # pick the latest
+      version = "~> 1.2.7"
     }
     lambdalabs = {
       source  = "elct9620/lambdalabs"
