@@ -1,8 +1,9 @@
 terraform {
+  required_version = ">= 1.8" # functions support landed in 1.8+
   required_providers {
     dotenv = {
-      source  = "arangamani/dotenv"
-      version = ">= 1.0.0"
+      source  = "germanbrew/dotenv"
+      version = "~> 1.2.7" # pick the latest
     }
     lambdalabs = {
       source  = "elct9620/lambdalabs"
@@ -11,14 +12,16 @@ terraform {
   }
 }
 
-provider "dotenv" {
+provider "dotenv" {}
+
+data "dotenv" "app" {
   filename = "${path.module}/.env"
 }
 
-provider "lambdalabs" {
-  api_key = dotenv_variable.lambdalabs_api_key.value
+locals {
+  lambda_key = data.dotenv.app.entries.LAMBDALABS_API_KEY
 }
 
-data "dotenv_variable" "lambdalabs_api_key" {
-  key = "LAMBDALABS_API_KEY"
+provider "lambdalabs" {
+  api_key = local.lambda_key
 }
