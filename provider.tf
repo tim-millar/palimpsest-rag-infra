@@ -20,6 +20,7 @@ data "dotenv" "app" {
 
 locals {
   lambda_key = data.dotenv.app.entries.LAMBDALABS_API_KEY
+  hf_token   = data.dotenv.app.entries.HF_TOKEN
 }
 
 provider "lambdalabs" {
